@@ -6,6 +6,7 @@
 #include <unzip.h>
 #include <sys/stat.h>
 #include <windows.h>
+#include <libxml/parser.h>
 
 int create_directory_for_file(const char* filepath)
 {
@@ -44,11 +45,14 @@ int main() {
     int flag = 0;
 
     // open zip file
-    zip_file = unzOpen("example.zip");
+    zip_file = unzOpen("example.docx");
     if (zip_file == NULL) {
         printf("failed to open archive.zip\n");
         exit(1);
     }
+
+    // create directory for extracted files
+    CreateDirectoryA("example", NULL);
 
     // read zip file contents
     ret = unzGoToFirstFile(zip_file);
